@@ -7,7 +7,12 @@
 <style>
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    /* Sports stadium background image with a dark gradient overlay for readability */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1517649763962-0c623266fbc0?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     margin: 0;
     padding: 40px 18px;
     text-align: center;
@@ -19,10 +24,11 @@
   .card {
     max-width: 420px;
     width: 100%;
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     border-radius: 24px;
     padding: 35px 24px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
   }
   h1 {
     margin: 10px 0 6px;
@@ -56,7 +62,7 @@
   }
   a.btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
   }
   /* Unique button brand colors */
   .whatsapp { background: linear-gradient(135deg, #25D366, #1EBE5D); }
