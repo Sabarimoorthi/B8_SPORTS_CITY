@@ -359,7 +359,70 @@
                     drop-shadow(0 0 8px rgba(255, 255, 255, 1)) drop-shadow(0 0 18px rgba(255, 193, 7, 1));
             }
         }
-    </style>
+    
+        /* =========================================================
+           MOBILE FULL-SCREEN FIX
+           The source artwork is 1866x843 (wide). On a portrait phone,
+           width:100vw + aspect-ratio leaves a large unused area below.
+           This override makes the poster itself fill the dynamic viewport.
+           The artwork is intentionally stretched on phones so the complete
+           artwork and all percentage-based hotspots remain visible/clickable.
+           Desktop/tablet/TV layouts are unchanged.
+           ========================================================= */
+        @media (max-width: 600px) {
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                min-height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background: #000;
+            }
+
+            body {
+                display: block;
+            }
+
+            .poster {
+                position: relative;
+                width: 100vw !important;
+                max-width: none !important;
+                height: 100dvh !important;
+                min-height: 100dvh !important;
+                aspect-ratio: auto !important;
+                margin: 0 !important;
+                overflow: hidden !important;
+                box-shadow: none !important;
+            }
+
+            .poster > img:not(.click-arrow) {
+                position: absolute;
+                inset: 0;
+                width: 100% !important;
+                height: 100% !important;
+                max-width: none !important;
+                object-fit: fill !important;
+            }
+
+            .hotspot {
+                /* Keep all original percentage positions/sizes.
+                   These now scale with the full-screen poster. */
+                min-width: 42px;
+                min-height: 42px;
+                touch-action: manipulation;
+            }
+
+            .click-arrow {
+                /* Scale with the mobile width while staying above hotspots. */
+                width: clamp(48px, 10vw, 90px) !important;
+                max-width: 14% !important;
+                height: auto !important;
+            }
+        }
+
+</style>
 </head>
 
 <body>
