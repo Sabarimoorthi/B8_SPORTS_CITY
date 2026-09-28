@@ -7,10 +7,13 @@
 <style>
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Animated modern premium dark gradient background matching your logo */
-    background: linear-gradient(-45deg, #090d16, #111827, #1f2937, #090d16);
-    background-size: 400% 400%;
-    animation: gradientBG 12s ease infinite;
+    /* Uses your logo as the background with a dark overlay for high readability */
+    background: linear-gradient(rgba(9, 13, 22, 0.85), rgba(9, 13, 22, 0.92)), 
+                url('ShopLogo.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     margin: 0;
     padding: 40px 18px;
     text-align: center;
@@ -20,42 +23,20 @@
     min-height: 100vh;
   }
 
-  @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
   .card {
     max-width: 420px;
     width: 100%;
-    background: rgba(15, 23, 42, 0.9);
+    background: rgba(15, 23, 42, 0.88);
     backdrop-filter: blur(12px);
     border-radius: 24px;
-    padding: 30px 22px;
+    padding: 35px 22px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(251, 191, 36, 0.3); /* Subtle gold border accent */
-  }
-
-  /* Logo styling wrapper */
-  .logo-container {
-    width: 100%;
-    margin-bottom: 20px;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    border: 2px solid #fbbf24;
-  }
-
-  .logo-container img {
-    width: 100%;
-    height: auto;
-    display: block;
+    border: 1px solid rgba(251, 191, 36, 0.4); /* Gold border accent */
   }
 
   h1 {
     margin: 10px 0 4px;
-    font-size: 24px;
+    font-size: 26px;
     color: #f8fafc;
     letter-spacing: 0.5px;
   }
@@ -100,11 +81,6 @@
 </head>
 <body>
 <div class="card">
-  <!-- Shop Logo Integration -->
-  <div class="logo-container">
-    <img src="ShopLogo.jpeg" alt="B8 Sports City Logo">
-  </div>
-
   <h1>B8 SPORTS CITY</h1>
   <div class="sub">Sports • Trophies • Jerseys • Tracks</div>
   
