@@ -17,6 +17,8 @@
         body {
             width: 100%;
             min-height: 100%;
+            margin: 0;
+            padding: 0;
             background: #050505;
             font-family: Arial, Helvetica, sans-serif;
         }
@@ -25,24 +27,39 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
             overflow-x: hidden;
+            overflow-y: auto;
         }
 
+        /*
+         * Responsive poster:
+         * - Uses the full available width on phones, desktops and TVs.
+         * - Keeps the original 1866:843 aspect ratio, so the artwork never
+         *   gets stretched or distorted.
+         * - max-width prevents the poster from becoming unnecessarily huge
+         *   on very large displays.
+         */
         .poster {
             position: relative;
-            width: min(100vw, 1866px);
+            width: min(100vw, 3840px);
+            max-width: 100%;
             aspect-ratio: 1866 / 843;
+            height: auto;
             overflow: hidden;
+            flex: 0 0 auto;
             background: #050505;
             box-shadow: 0 20px 70px rgba(0, 0, 0, .65);
         }
 
-        .poster img {
+        .poster > img:not(.click-arrow) {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover;
+            object-fit: fill;
         }
 
         /* Invisible clickable areas aligned exactly with the CTA icons in the poster. */
@@ -225,15 +242,77 @@
             }
         }
 
-        @media (max-width: 700px) {
+        /* =========================================================
+           RESPONSIVE BREAKPOINTS
+           ========================================================= */
+
+        /* Phones */
+        @media (max-width: 600px) {
             body {
                 align-items: flex-start;
+                min-height: 100dvh;
             }
 
             .poster {
                 width: 100vw;
-                aspect-ratio: 1866 / 843;
-                margin-top: 0;
+                max-width: 100vw;
+                margin: 0;
+                box-shadow: none;
+            }
+
+            .hotspot {
+                /* Keep touch targets comfortably tappable on phones. */
+                min-width: 42px;
+                min-height: 42px;
+            }
+
+            .click-arrow {
+                width: clamp(48px, 10vw, 90px) !important;
+                max-width: 14%;
+            }
+        }
+
+        /* Small tablets / landscape phones */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .poster {
+                width: 100vw;
+                max-width: 100vw;
+            }
+
+            .click-arrow {
+                width: clamp(70px, 8vw, 120px) !important;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 1025px) and (max-width: 1920px) {
+            .poster {
+                width: 100vw;
+            }
+        }
+
+        /* Large TV / 4K displays */
+        @media (min-width: 1921px) {
+            .poster {
+                width: min(100vw, 3840px);
+            }
+
+            .click-arrow {
+                width: clamp(120px, 5vw, 220px) !important;
+            }
+        }
+
+        /* Very tall/narrow screens: keep the poster centered at the top. */
+        @media (max-aspect-ratio: 4/3) {
+            body {
+                align-items: flex-start;
+            }
+        }
+
+        /* Prevent accidental horizontal overflow at every size. */
+        @media (hover: none) {
+            .hotspot:hover {
+                transform: none;
             }
         }
 
@@ -241,11 +320,12 @@
         .click-arrow {
             position: absolute;
 
-            /* SIZE */
-            width: 140px !important;
+            /* Responsive size: scales from mobile to large TV screens */
+            width: clamp(48px, 7.5vw, 220px) !important;
+            max-width: 12%;
             height: auto !important;
 
-            /* POSITION - adjust these */
+            /* Position relative to the poster */
             left: 20%;
             top: 72%;
 
@@ -292,7 +372,7 @@
             <span>Click  Here</span>
             ➤
         </div> -->
-        <img class="click-arrow" src="Arrowmark.png" alt="Click Here Arrow">
+        <img class="click-arrow" src="Arrowmark.png" alt="Click Here Arrow" draggable="false">
         <a class="hotspot whatsapp" href="https://wa.me/919080084596" target="_blank" rel="noopener noreferrer"
             aria-label="Contact B8 Sports City on WhatsApp"></a>
 
