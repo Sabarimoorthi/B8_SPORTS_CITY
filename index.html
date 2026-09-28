@@ -71,42 +71,31 @@
    visible gold logo ring in the supplied artwork.
    The hotspot itself never scales or moves during animation.
 */
-        .hotspot {
-            position: absolute;
-            z-index: 20;
-            display: block;
-            border-radius: 50%;
-            aspect-ratio: 1 / 1;
-            transform: translate(-50%, -50%);
-            text-decoration: none;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            outline: none;
-        }
+       .hotspot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    
+    /* Keep hotspot invisible */
+    border: none !important;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    
+    /* Disable visual animation */
+    animation: none !important;
+}
 
-        .hotspot::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 193, 7, .80);
-            box-shadow:
-                0 0 7px rgba(255, 193, 7, .55),
-                0 0 15px rgba(255, 193, 7, .20);
-            opacity: .58;
-            pointer-events: none;
-            animation: logoGlow 2.4s ease-in-out infinite;
-        }
+/* Remove extra circle */
+.hotspot::before {
+    content: none !important;
+    display: none !important;
+}
 
-        .hotspot::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            pointer-events: none;
-            box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
-            animation: logoPulse 2.4s ease-out infinite;
-        }
+/* Remove extra glow/pulse */
+.hotspot::after {
+    content: none !important;
+    display: none !important;
+}
 
         @keyframes logoGlow {
 
@@ -237,7 +226,7 @@
             .mobile-frame .hotspot.whatsapp {
                 left: 32.70833%;
                 top: 65.37559%;
-                width: 22.91667%;
+                width: 23.91667%;
             }
 
             .mobile-frame .hotspot.instagram {
