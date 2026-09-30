@@ -1,0 +1,113 @@
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;min-height:100%;background:#000}
+body{overflow-x:hidden;font-family:Arial,Helvetica,sans-serif}
+.page{width:100%;min-height:100dvh;display:flex;justify-content:center;align-items:flex-start;background:#000}
+.artboard{position:relative;flex:0 0 auto;overflow:hidden;line-height:0}
+.poster{display:block;width:100%;height:100%;object-fit:fill;user-select:none;-webkit-user-drag:none}
+
+/* Desktop / TV: preserve the exact 1902:882 artwork ratio. */
+.desktop-artboard{width:min(100vw,calc(100dvh * 2.1564626));aspect-ratio:1902/882}
+.mobile-artboard{display:none;width:100vw;aspect-ratio:841/1632}
+
+/* ---------------- CLICKABLE HOTSPOTS ---------------- */
+.hotspot{
+  position:absolute;
+  z-index:10;
+  display:block;
+  transform:translate(-50%,-50%);
+  background:transparent;
+  border:0;
+  outline:0;
+  text-decoration:none;
+  cursor:pointer;
+  aspect-ratio:1/1;
+  border-radius:50%;
+  -webkit-tap-highlight-color:transparent;
+}
+
+/*
+  The gold rings are already part of the artwork.
+  No second visible border is drawn. The transparent ring only produces
+  a soft periodic glow around the existing artwork ring.
+*/
+.hotspot::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:1px solid transparent;
+  box-shadow:0 0 0 0 rgba(255,193,7,0);
+  opacity:.18;
+  pointer-events:none;
+  animation:ringBlink 2.8s ease-in-out infinite;
+}
+
+@keyframes ringBlink{
+  0%,55%,100%{
+    opacity:.12;
+    box-shadow:0 0 2px 0 rgba(255,193,7,.10),0 0 6px 0 rgba(255,193,7,.04);
+  }
+  62%{
+    opacity:.95;
+    box-shadow:0 0 5px 1px rgba(255,193,7,.75),0 0 15px 2px rgba(255,193,7,.42),0 0 26px 4px rgba(255,193,7,.16);
+  }
+  72%{
+    opacity:.20;
+    box-shadow:0 0 3px 0 rgba(255,193,7,.18),0 0 9px 1px rgba(255,193,7,.08);
+  }
+}
+
+.hotspot:hover::after,
+.hotspot:focus-visible::after{
+  opacity:1;
+  box-shadow:0 0 6px 1px rgba(255,193,7,.9),0 0 18px 3px rgba(255,193,7,.48);
+}
+.hotspot:focus-visible{outline:2px solid rgba(255,193,7,.9);outline-offset:4px}
+
+/* ---------------- DESKTOP POSITIONS ---------------- */
+.desktop-hotspot.whatsapp{left:33.64879%;top:73.92290%;width:5.67823%}
+.desktop-hotspot.instagram{left:44.32177%;top:73.92290%;width:5.67823%}
+.desktop-hotspot.shop{left:54.94217%;top:73.92290%;width:5.67823%}
+.desktop-hotspot.location{left:65.56257%;top:73.92290%;width:5.67823%}
+
+/* ---------------- CLICK-HERE IMAGE ---------------- */
+.click-arrow{
+  position:absolute;
+  z-index:12;
+  width:auto;
+  height:auto;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+  animation:arrowAttention 2.2s ease-in-out infinite;
+  transform-origin:center center;
+  filter:drop-shadow(0 0 4px rgba(255,193,7,.85)) drop-shadow(0 0 9px rgba(255,193,7,.35));
+}
+@keyframes arrowAttention{
+  0%,100%{transform:translate3d(0,0,0) rotate(-2deg) scale(1);filter:drop-shadow(0 0 3px rgba(255,193,7,.70)) drop-shadow(0 0 7px rgba(255,193,7,.25))}
+  45%{transform:translate3d(0,-5px,0) rotate(2deg) scale(1.05);filter:drop-shadow(0 0 7px rgba(255,193,7,1)) drop-shadow(0 0 15px rgba(255,193,7,.50))}
+  55%{transform:translate3d(0,-3px,0) rotate(0deg) scale(1.02)}
+}
+.desktop-arrow{left:18%;top:68%;width:9%}
+
+/* ---------------- MOBILE ---------------- */
+@media (max-width:700px){
+  .desktop-artboard{display:none}
+  .mobile-artboard{display:block}
+
+  .mobile-hotspot.whatsapp{left:31.35%;top:68.70%;width:25.15%}
+  .mobile-hotspot.instagram{left:68.48%;top:68.70%;width:24.85%}
+  .mobile-hotspot.shop{left:31.39%;top:87.16%;width:25.15%}
+  .mobile-hotspot.location{left:68.50%;top:87.14%;width:24.85%}
+
+  /* Same real arrow image, resized for mobile and pointing toward WhatsApp. */
+  .mobile-arrow{left:5%;top:66.4%;width:29%}
+}
+
+@media (max-width:380px){
+  .mobile-arrow{left:4%;top:66.1%;width:30%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hotspot::after,.click-arrow{animation:none}
+}
