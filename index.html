@@ -1,55 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#000000">
-  <title>B8 Sports City</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B8 SPORTS CITY | Official Web Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,800;1,900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --gold-bright: #ffd700;
+            --gold-main: #f5e1a4;
+            --gold-dark: #c9a050;
+            --gold-glow: rgba(245, 225, 164, 0.4);
+            --gold-glow-strong: rgba(255, 215, 0, 0.65);
+        }
+
+        body {
+            font-family: 'Outfit', 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Golden Gradient Text Effect */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #FFF6D1 0%, #FFD700 45%, #C9A050 80%, #E6C280 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-gold-bright {
+            background: linear-gradient(180deg, #FFFFFF 0%, #FFEA79 50%, #FFC800 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Multi-ring Golden Edge Effect for Emblem */
+        .gold-ring-container {
+            position: relative;
+            border-radius: 50%;
+            padding: 8px;
+            background: radial-gradient(circle, rgba(201, 160, 80, 0.15) 0%, transparent 70%);
+            box-shadow: 0 0 35px var(--gold-glow);
+        }
+
+        .gold-ring-outer {
+            border: 2px solid var(--gold-dark);
+            border-radius: 50%;
+            padding: 4px;
+            box-shadow: inset 0 0 15px var(--gold-glow), 0 0 15px var(--gold-glow);
+            position: relative;
+        }
+
+        .gold-ring-outer::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 215, 0, 0.5);
+            animation: spin 30s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .gold-ring-inner {
+            border: 3px solid var(--gold-bright);
+            border-radius: 50%;
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 25px rgba(255, 215, 0, 0.35);
+        }
+
+        /* Action Buttons Golden Glow Circles */
+        .action-btn-circle {
+            position: relative;
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-bright);
+            background: radial-gradient(circle, rgba(20, 20, 20, 0.9) 0%, rgba(5, 5, 5, 0.95) 100%);
+            box-shadow: 0 0 18px var(--gold-glow), inset 0 0 10px rgba(255, 215, 0, 0.2);
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .action-btn-circle {
+                width: 95px;
+                height: 95px;
+            }
+        }
+
+        .action-btn-group:hover .action-btn-circle {
+            transform: translateY(-6px) scale(1.06);
+            border-color: #ffffff;
+            box-shadow: 0 0 30px var(--gold-glow-strong), inset 0 0 18px var(--gold-glow-strong);
+        }
+
+        /* Custom Corner Accents */
+        .corner-accent-tl {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold-dark) 40%, transparent 40%);
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .corner-accent-br {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(315deg, var(--gold-bright) 0%, var(--gold-dark) 40%, transparent 40%);
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        /* Vignette Dark Overlay */
+        .vignette-overlay {
+            background: radial-gradient(circle at center, transparent 30%, rgba(5, 5, 5, 0.8) 80%, rgba(5, 5, 5, 0.98) 100%);
+        }
+
+        /* Horizontal Golden Divider Light Bar */
+        .gold-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--gold-dark) 20%, var(--gold-bright) 50%, var(--gold-dark) 80%, transparent 100%);
+            box-shadow: 0 0 10px var(--gold-glow-strong);
+        }
+
+        /* Toast notification */
+        #toast {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+    </style>
 </head>
-<body>
-  <main class="page">
+<body class="min-h-screen flex flex-col justify-between relative bg-black text-white antialiased selection:bg-amber-500 selection:text-black">
 
-    <!-- DESKTOP / TV -->
-    <section class="artboard desktop-artboard" aria-label="B8 Sports City desktop poster">
-      <img class="poster" src="assets/desktop.png" alt="B8 Sports City desktop design">
+    <div class="corner-accent-tl z-20 hidden sm:block"></div>
+    <div class="corner-accent-br z-20 hidden sm:block"></div>
 
-      <!-- Invisible clickable hotspots with synchronized blinking gold rings -->
-      <a class="hotspot desktop-hotspot whatsapp" href="https://wa.me/919080084596"
-         target="_blank" rel="noopener" aria-label="WhatsApp"></a>
+    <!-- Background Store Imagery & Dark Mask -->
+    <div class="fixed inset-0 z-0 opacity-25 bg-cover bg-center pointer-events-none vignette-overlay" 
+         style="background-image: url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1800&auto=format&fit=crop');">
+    </div>
 
-      <a class="hotspot desktop-hotspot instagram" href="https://www.instagram.com/b8_sports_city/"
-         target="_blank" rel="noopener" aria-label="Instagram"></a>
+    <header class="relative z-10 w-full pt-4 pb-2 px-4 flex flex-col items-center">
+        <!-- Main Circular Gold Logo Emblem -->
+        <div class="gold-ring-container my-2">
+            <div class="gold-ring-outer">
+                <div class="gold-ring-inner w-44 h-44 sm:w-52 sm:h-52 p-2 text-center relative overflow-hidden">
+                    <!-- Crown Icon -->
+                    <svg class="w-8 h-8 text-amber-300 mb-1 drop-shadow" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+                    </svg>
+                    <!-- Giant 'B' Emblem -->
+                    <div class="text-4xl sm:text-5xl font-extrabold font-montserrat tracking-tighter text-gradient-gold leading-none drop-shadow-md">
+                        B8
+                    </div>
+                    <!-- Brand Sub-text in Badge -->
+                    <div class="text-[10px] sm:text-[11px] font-bold tracking-widest text-amber-200 uppercase mt-1 border-t border-b border-amber-500/50 py-0.5 px-2">
+                        B8 SPORTS CITY
+                    </div>
+                    <!-- Phone Number in Emblem -->
+                    <a href="tel:9080084596" class="mt-1 text-xs sm:text-sm font-extrabold tracking-wider text-white hover:text-amber-300 transition-colors">
+                        90800 84596
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-      <a class="hotspot desktop-hotspot shop" href="https://wa.me/c/919080084596"
-         target="_blank" rel="noopener" aria-label="Shop Now"></a>
+    <main class="relative z-10 container mx-auto px-4 flex-1 flex flex-col items-center justify-center text-center my-2">
+        
+        <!-- Left & Right Decorative Side Sports Banners (Visible on Medium+ Screens) -->
+        <div class="hidden md:flex justify-between w-full max-w-5xl absolute inset-y-0 pointer-events-none opacity-40 px-4">
+            <div class="flex flex-col justify-center items-start text-left">
+                <span class="text-xs tracking-widest text-amber-400 uppercase font-semibold">Play Hard</span>
+                <span class="text-xl font-extrabold text-gray-300 uppercase">SPORTS BUILDS<br/>BETTER YOU</span>
+            </div>
+            <div class="flex flex-col justify-center items-end text-right">
+                <span class="text-xs tracking-widest text-amber-400 uppercase font-semibold">Train Smart</span>
+                <span class="text-xl font-extrabold text-gray-300 uppercase">PLAY TRAIN<br/>ACHIEVE TOGETHER</span>
+            </div>
+        </div>
 
-      <a class="hotspot desktop-hotspot location" href="https://www.google.com/maps/search/?api=1&query=B8%20Sports%20City" target="_blank" rel="noopener" aria-label="Visit Us"></a>
+        <!-- Official Web Portal Capsule Badge -->
+        <div class="inline-block my-2 px-6 py-1.5 rounded-full border border-amber-400/80 bg-black/80 backdrop-blur-md shadow-[0_0_15px_rgba(245,225,164,0.3)]">
+            <span class="text-xs sm:text-sm font-bold tracking-[0.25em] text-amber-200 uppercase">
+                OFFICIAL WEB PORTAL
+            </span>
+        </div>
 
-      <!-- This is an image, not CSS-drawn text/arrow. -->
-   
-    </section>
+        <!-- Main Heading Title -->
+        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase my-2 font-montserrat drop-shadow-lg">
+            <span class="text-white italic">B8</span> 
+            <span class="text-gradient-gold-bright italic">SPORTS CITY</span>
+        </h1>
 
-    <!-- MOBILE -->
-    <section class="artboard mobile-artboard" aria-label="B8 Sports City mobile poster">
-      <img class="poster" src="assets/mobile.png" alt="B8 Sports City mobile design">
+        <!-- Product Categories List Line -->
+        <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs sm:text-base font-bold tracking-widest text-gray-200 uppercase my-2">
+            <span>SPORTS</span>
+            <span class="text-amber-400">•</span>
+            <span>TROPHIES</span>
+            <span class="text-amber-400">•</span>
+            <span>JERSEYS</span>
+            <span class="text-amber-400">•</span>
+            <span>TRACKS</span>
+        </div>
 
-      <a class="hotspot mobile-hotspot whatsapp" href="https://wa.me/919080084596"
-         target="_blank" rel="noopener" aria-label="WhatsApp"></a>
+        <!-- Golden Divider Line -->
+        <div class="w-full max-w-md my-4 gold-divider"></div>
 
-      <a class="hotspot mobile-hotspot instagram" href="https://www.instagram.com/b8_sports_city/"
-         target="_blank" rel="noopener" aria-label="Instagram"></a>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 my-6 max-w-3xl w-full px-4">
+            
+            <!-- WhatsApp Action Button -->
+            <a href="https://wa.me/919080084596?text=Hello%20B8%20Sports%20City,%20I%20want%20to%20enquire%20about%20your%20products!" 
+               target="_blank" 
+               class="action-btn-group flex flex-col items-center group cursor-pointer">
+                <div class="action-btn-circle">
+                    <!-- WhatsApp SVG Icon -->
+                    <svg class="w-8 h-8 sm:w-10 sm:h-10 text-amber-300 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.762.459 3.48 1.332 5.001L2 22l5.12-1.338c1.464.798 3.111 1.22 4.887 1.221h.005c5.505 0 9.988-4.478 9.989-9.985 0-2.668-1.038-5.176-2.926-7.062A9.922 9.922 0 0 0 12.012 2zm5.836 14.124c-.252.71-1.246 1.302-2.023 1.472-.532.115-1.227.208-3.565-.765-2.993-1.245-4.918-4.3-5.068-4.5-.148-.2-1.218-1.621-1.218-3.092 0-1.472.771-2.196 1.045-2.492.274-.296.6-.37.8-.37.2 0 .4 0 .573.01.185.008.435-.07.68.518.252.607.86 2.098.934 2.248.075.15.125.325.025.523-.1.197-.15.32-.298.494-.148.173-.312.387-.446.52-.148.148-.302.31-.13.606.173.296.768 1.267 1.65 2.052 1.134 1.01 2.091 1.323 2.387 1.471.296.148.47.123.643-.074.173-.197.74-.863.938-1.16.197-.296.395-.246.666-.148.271.099 1.725.813 2.021.961.296.148.493.222.567.345.074.123.074.715-.178 1.425z"/>
+                    </svg>
+                </div>
+                <span class="mt-3 text-xs sm:text-sm font-extrabold tracking-widest text-gray-200 group-hover:text-amber-300 uppercase transition-colors">
+                    WHATSAPP
+                </span>
+            </a>
 
-      <a class="hotspot mobile-hotspot shop" href="https://wa.me/c/919080084596"
-         target="_blank" rel="noopener" aria-label="Shop Now"></a>
+            <!-- Instagram Action Button -->
+            <a href="https://instagram.com" 
+               target="_blank" 
+               onclick="showToast('Redirecting to B8 Sports City Instagram Page...');"
+               class="action-btn-group flex flex-col items-center group cursor-pointer">
+                <div class="action-btn-circle">
+                    <!-- Instagram SVG Icon -->
+                    <svg class="w-8 h-8 sm:w-10 sm:h-10 text-amber-300 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </div>
+                <span class="mt-3 text-xs sm:text-sm font-extrabold tracking-widest text-gray-200 group-hover:text-amber-300 uppercase transition-colors">
+                    INSTAGRAM
+                </span>
+            </a>
 
-      <a class="hotspot mobile-hotspot location" href="https://www.google.com/maps/search/?api=1&query=B8%20Sports%20City" target="_blank" rel="noopener" aria-label="Visit Us"></a>
+            <!-- Shop Now Action Button -->
+            <button onclick="showToast('Online Store catalog opening shortly! Call 90800 84596 for instant orders.');" 
+                    class="action-btn-group flex flex-col items-center group cursor-pointer focus:outline-none">
+                <div class="action-btn-circle">
+                    <!-- Storefront SVG Icon -->
+                    <svg class="w-8 h-8 sm:w-10 sm:h-10 text-amber-300 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h6v2c0 .55.45 1 1 1s1-.45 1-1V8h2v12z"/>
+                    </svg>
+                </div>
+                <span class="mt-3 text-xs sm:text-sm font-extrabold tracking-widest text-gray-200 group-hover:text-amber-300 uppercase transition-colors">
+                    SHOP NOW
+                </span>
+            </button>
 
-      <img class="click-arrow mobile-arrow"
-           src="assets/click_here_arrow.png"
-           alt="Click here">
-    </section>
+            <!-- Visit Us Action Button -->
+            <a href="https://maps.google.com/?q=B8+Sports+City" 
+               target="_blank" 
+               onclick="showToast('Opening Google Maps location for B8 Sports City...');"
+               class="action-btn-group flex flex-col items-center group cursor-pointer">
+                <div class="action-btn-circle">
+                    <!-- Location Pin SVG Icon -->
+                    <svg class="w-8 h-8 sm:w-10 sm:h-10 text-amber-300 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <span class="mt-3 text-xs sm:text-sm font-extrabold tracking-widest text-gray-200 group-hover:text-amber-300 uppercase transition-colors">
+                    VISIT US
+                </span>
+            </a>
 
-  </main>
+        </div>
+
+    </main>
+
+    <footer class="relative z-10 w-full py-4 px-4 text-center">
+        <div class="w-full max-w-lg mx-auto gold-divider mb-3"></div>
+        <!-- Bottom Tagline -->
+        <p class="text-xs sm:text-sm font-extrabold tracking-[0.2em] text-gradient-gold uppercase">
+            PLAY • TRAIN • ACHIEVE TOGETHER
+        </p>
+    </footer>
+
+    <!-- Interactive Toast Notification Popup -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-amber-400 text-black font-bold px-6 py-3 rounded-full shadow-[0_0_20px_rgba(255,215,0,0.8)] opacity-0 pointer-events-none transform translate-y-4 transition-all duration-300 text-xs sm:text-sm text-center">
+        Notification Message
+    </div>
+
+    <script>
+        // Interactive Toast Function
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
